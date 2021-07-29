@@ -1,20 +1,27 @@
 import 'dart:async';
-import 'dart:developer';
 
-import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
-
 import 'package:find_pet/app/app.dart';
-import 'package:find_pet/app/app_bloc_observer.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
-  Bloc.observer = AppBlocObserver();
-  FlutterError.onError = (details) {
-    log(details.exceptionAsString(), stackTrace: details.stack);
-  };
+import 'config/config.dart';
 
-  runZonedGuarded(
-    () => runApp(const App()),
-    (error, stackTrace) => log(error.toString(), stackTrace: stackTrace),
+void main() async {
+  var repository = await Initialization.init();
+
+  // That will give you native crash support (for Android and iOS),
+  // release health, offline caching and more.
+
+  await runZonedGuarded(
+    () async {
+      await SentryFlutter.init(
+        (options) => options.dsn = dotenv.env['SENTRY_IO'],
+        appRunner: () => runApp(App(repository: repository)),
+      );
+    },
+    (error, stackTrace) async {
+      await Sentry.captureException(error, stackTrace: stackTrace);
+    },
   );
 }

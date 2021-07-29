@@ -15,7 +15,7 @@ class Repository implements RepositoryService {
   /// loadRandomDogImages will load images of the dogs
   @override
   Future<Response> loadRandomDogImages({int pageNumber = 1}) async {
-    String url = '${dotenv.env['API_URL']!}/image/random/$pageNumber';
+    var url = '${dotenv.env['API_URL']!}/breeds/image/random/$pageNumber';
     return await client.get(url, '');
   }
 }
