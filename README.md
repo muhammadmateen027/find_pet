@@ -36,6 +36,13 @@ This application should have two (2) screens
 You can use following api to fetch data:
 https://dog.ceo/dog-api/
 
+<table>
+  <tr>
+    <td> <img src="https://user-images.githubusercontent.com/24449076/127727636-a444687b-23ec-4068-b9d1-b901c28c66c7.jpg" title="Pets" width="180" height="350" /></td>
+    <td> <img src="https://user-images.githubusercontent.com/24449076/127727638-094ce5d8-f99d-4a51-8d13-e59a05597c4b.jpg" title="Pet detail" width="180" height="350" /></td>
+  </tr> 
+</table>
+
 ## Solution 💪
 
 The solution is designed so a user can access load available pets from the internet. The detail is given below:
