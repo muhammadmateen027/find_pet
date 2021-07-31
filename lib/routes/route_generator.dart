@@ -7,9 +7,14 @@ import 'transition_animation/transition_animation.dart';
 class RouteGenerator {
 
   static Route<dynamic> generateRoute(RouteSettings setting) {
+    final args = setting.arguments;
+
     switch (setting.name) {
       case RoutesName.initial:
-        return PageTransition.slideUpRoute(DashboardPage());
+        return PageTransition.slideUpRoute(const DashboardPage());
+
+      case RoutesName.petDetail:
+        return PageTransition.slideUpRoute(PetDetail(imageUrl: args as String));
 
       default:
         return _errorRoute();

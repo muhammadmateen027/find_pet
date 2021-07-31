@@ -3,6 +3,7 @@ import 'package:find_pet/find_pet/find_pet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:find_pet/find_pet/global/global.dart';
 
 import 'component/component.dart';
 
@@ -36,51 +37,42 @@ class _DashboardPageState extends BaseState<DashboardPage> with BasicPage {
 
     return Padding(
       padding: const EdgeInsets.only(top: 40),
-      child: Container(
-        decoration: BoxDecoration(
-            color: Colors.white.withOpacity(1.0),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(40),
-              topRight: Radius.circular(40),
-            )),
-        padding: EdgeInsets.symmetric(horizontal: 0),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20),
-              child: Text(
-                'Animals perdidos',
-                style: theme.textTheme.headline6!.copyWith(
-                  color: theme.colorScheme.primary,
-                ),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            child: Text(
+              'Animals perdidos',
+              style: theme.textTheme.headline6!.copyWith(
+                color: theme.colorScheme.primary,
               ),
             ),
-            BlocBuilder<DashboardBloc, DashboardState>(
-              buildWhen: (pre, curr) {
-                if (curr is DogsLoaded) {
-                  return true;
-                }
-                if (curr is DashboardLoading) {
-                  return true;
-                }
-                return false;
-              },
-              builder: (context, state) {
-                if (state is DogsLoaded) {
-                  _refreshController.loadComplete();
-                  return _getList(state);
-                }
+          ),
+          BlocBuilder<DashboardBloc, DashboardState>(
+            buildWhen: (pre, curr) {
+              if (curr is DogsLoaded) {
+                return true;
+              }
+              if (curr is DashboardLoading) {
+                return true;
+              }
+              return false;
+            },
+            builder: (context, state) {
+              if (state is DogsLoaded) {
+                _refreshController.loadComplete();
+                return _getList(state);
+              }
 
-                if (state is DashboardLoading) {
-                  return const Center(child: CircularProgressIndicator());
-                }
+              if (state is DashboardLoading) {
+                return const Center(child: CircularProgressIndicator());
+              }
 
-                return const Center();
-              },
-            ),
-          ],
-        ),
-      ),
+              return const Center();
+            },
+          ),
+        ],
+      ).primaryBorder(),
     );
   }
 

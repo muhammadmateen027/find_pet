@@ -1,8 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-import '../extension/extension.dart';
-
 //We have used CachedNetworkImage as a image load. It'll help to load image if
 // the internet is not available. As per base manager, the file duration is
 // Duration maxAge = const Duration(days: 30),
@@ -22,13 +20,13 @@ class ImageView extends StatelessWidget {
         placeholder: (context, url) => Center(
           child: const SizedBox(
             width: double.maxFinite,
-          ).getShimmerEffect(),
+          )
         ),
         errorWidget: (_, message, state) {
           return Center(
             child: const SizedBox(
               width: double.maxFinite,
-            ).getShimmerEffect(),
+            ),
           );
         },
         fit: BoxFit.fitHeight,
